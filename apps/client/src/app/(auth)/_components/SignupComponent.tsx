@@ -49,7 +49,7 @@ export default function SignupComponent() {
       if (response?.success) {
         router.replace('/projects');
       } else {
-        setServerError(response?.message ?? 'An error occurred during signup');
+        setServerError(response?.error ?? 'An error occurred during signup');
       }
     } catch (error) {
       setServerError('An unexpected error occurred. Please try again.');

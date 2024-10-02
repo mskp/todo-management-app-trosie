@@ -37,11 +37,11 @@ export default function LoginComponent() {
     try {
       setServerError(null);
       const response = await login(data);
-
+      console.log(response);
       if (response?.success) {
         router.replace('/projects');
       } else {
-        setServerError(response?.message ?? 'An error occurred during signup');
+        setServerError(response?.error ?? 'An error occurred during login');
       }
     } catch (error) {
       setServerError('An unexpected error occurred. Please try again.');
