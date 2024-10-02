@@ -1,0 +1,44 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore build output directories (NestJS and Next.js)
+dist/
+.next/
+out/
+
+# Ignore environment variable files
+.env
+.env.local
+.env.*.local
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Ignore build artifacts and logs
+*.log
+coverage/
+build/
+
+# Ignore database-related files (Prisma, migrations, etc.)
+prisma/migrations/
+
+# Ignore public/static assets (Next.js)
+public/
+static/
+
+# Ignore compiled TypeScript files
+*.d.ts
+*.js
+
+# Ignore VSCode settings
+.vscode/
+
+# Ignore Docker-related files
+Dockerfile
+docker-compose.yml
+
+# Ignore any other specific file or folder
+*.css
+*.svg
