@@ -27,15 +27,17 @@ export default function GistExportSuccessDialog({
 }: GistExportSuccessDialogProps) {
   const handleDownload = async () => {
     if (gistUrl) {
-      const response: any = await downloadGistAsMarkdown(gistUrl);
+      const response = await downloadGistAsMarkdown(gistUrl);
       if (response.success && response.data) {
-        const blob = new Blob([response.data], { type: 'text/markdown' });
+        const blob = new Blob([response.data.fileContent], {
+          type: 'text/markdown',
+        });
 
         const url = window.URL.createObjectURL(blob);
 
         const a = document.createElement('a');
         a.href = url;
-        a.download = response.filename || 'gist.md';
+        a.download = response.data.filename || 'gist.md';
         document.body.appendChild(a);
         a.click();
 

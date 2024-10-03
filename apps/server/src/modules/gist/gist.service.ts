@@ -87,10 +87,7 @@ ${completedTodos.map((todo) => `- [x] ${todo.description}`).join('\n')}
    * @param {Response} res - The Express response object to send the markdown content.
    * @throws {NotFoundException} - If the Gist with the given ID is not found.
    */
-  async downloadGistAsMarkdown(
-    gistId: string,
-    @Res() res: Response,
-  ): Promise<void> {
+  async downloadGistAsMarkdown(gistId: string) {
     const response = await fetch(`${this.GITHUB_API_URL}/${gistId}`, {
       method: 'GET',
       headers: {
@@ -106,11 +103,15 @@ ${completedTodos.map((todo) => `- [x] ${todo.description}`).join('\n')}
       files: Record<string, { content: string }>;
     };
 
-    const [filename, fileData] = Object.entries(gist.files)[0];
+    const [filename, { content }] = Object.entries(gist.files)[0];
 
-    res.setHeader('Content-Type', 'text/markdown');
-    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.send(fileData.content);
+    return standardResponse({
+      success: true,
+      data: {
+        filename,
+        fileContent: content,
+      },
+    });
   }
 
   /**

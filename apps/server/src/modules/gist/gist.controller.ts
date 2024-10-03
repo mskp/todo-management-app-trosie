@@ -19,10 +19,7 @@ export class GistController {
   }
 
   @Get('/download/:gistId')
-  async downloadGistAsMarkdown(
-    @Param('gistId') gistId: string,
-    @Res() response: Response,
-  ) {
-    return this.gistService.downloadGistAsMarkdown(gistId, response);
+  async downloadGistAsMarkdown(@Param('gistId') gistId: string) {
+    return this.gistService.downloadGistAsMarkdown(gistId);
   }
 }

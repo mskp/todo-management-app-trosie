@@ -37,7 +37,6 @@ export default function LoginComponent() {
     try {
       setServerError(null);
       const response = await login(data);
-      console.log(response);
       if (response?.success) {
         router.replace('/projects');
       } else {

@@ -115,7 +115,7 @@ export async function deleteTodo(todoId: number): Promise<ActionResponse> {
 
 export async function downloadGistAsMarkdown(
   gistUrl: string,
-): Promise<ActionResponse<{ data: Blob; filename: string }>> {
+): Promise<ActionResponse<{ filename: string; fileContent: Blob }>> {
   const gistId = getGistId(gistUrl);
 
   if (!gistId) {
@@ -123,14 +123,17 @@ export async function downloadGistAsMarkdown(
   }
 
   try {
-    const response = await axios.get(`/gist/download/${gistId}`, {
-      responseType: 'blob',
-    });
+    const response = await axios.get<
+      ActionResponse<{ filename: string; fileContent: Blob }>
+    >(`/gist/download/${gistId}`);
+
+    const data = response.data.data;
+
     return {
       success: true,
       data: {
-        data: response.data,
-        filename: `gist_${gistId}.md`,
+        filename: data?.filename!,
+        fileContent: data?.fileContent!,
       },
     };
   } catch (error) {
